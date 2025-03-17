@@ -6,7 +6,8 @@ WhatsArchive is a command-line tool to parse and export WhatsApp chat transcript
 1. [Installation](#installation)
 2. [Usage](#usage)
 3. [Command-Line Options](#command-line-options)
-4. [Examples](#examples)
+4. [Generating Mock WhatsApp Chat](#generating-mock-whatsapp-chat)
+5. [Examples](#examples)
 
 ---
 
@@ -61,7 +62,51 @@ Replace `<file_path>` with the path to your  `.zip` file containing the WhatsApp
 4. `--convert-opus`	Converts .opus audio files to .mp3 format for compatibility with more audio players. Requires ffmpeg.
 5. `--no-media`	Skips downloading media files; only the chat transcript will be saved.
 
+## Generating Mock WhatsApp Chat
 
+The WhatsArchive CLI tool includes a mock data generator (`mocker.ts`) that creates a test `.zip` file containing a simulated WhatsApp chat transcript along with optional media files. This can be useful for testing the tool.
+
+### **Usage**
+To generate a mock `.zip` file, run the following command:
+
+```bash
+npm run mock -- --output <output_zip_path> [options]
+```
+
+- **`--output` `<path>`** (Required) - Specifies the output path where the mock `.zip` file will be saved.
+- **`--messageCount` `<number>`** (Optional) - Number of messages to generate (default: `100`).
+- **`--textToMediaRatio` `<number>`** (Optional) - Defines the ratio of text messages to media messages (default: `5`).
+- **`--addMedia`** (Optional) - Includes media messages in the chat if enabled.
+
+### **Examples**
+
+#### **Generate a mock chat archive with 100 messages and no media**
+```bash
+npm run mock -- --output test_files/mock_chat.zip
+```
+
+#### **Generate a mock chat with 200 messages and media included**
+```bash
+npm run mock -- --output test_files/mock_chat.zip --messageCount 200 --addMedia
+```
+
+#### **Generate a chat with 50 messages where 1 in every 3 messages is a media message**
+```bash
+npm run mock -- --output test_files/mock_chat.zip --messageCount 50 --textToMediaRatio 3 --addMedia
+```
+
+### **How It Works**
+- The script generates a chat transcript with realistic timestamps and randomized message content.
+- If the `--addMedia` flag is used, the script randomly inserts media messages and includes sample media files (`.jpg`, `.opus`).
+- The generated chat and media files are bundled into a `.zip` archive, simulating a real exported WhatsApp chat.
+
+After generating the `.zip` file, you can use it as an input when running the WhatsArchive CLI tool:
+
+```bash
+npm start -- --input test_files/mock_chat.zip --output output
+```
+
+This will parse the mock chat and process it based on the provided options.
 
 ## Examples
 
@@ -98,6 +143,3 @@ npm start -- --input test_files/test_zip_opus.zip --output output  --convert-to 
 ```
 
 This will parse the chat, convert .opus audio files to .mp3, and download other media files.
-
-
-
