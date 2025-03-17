@@ -1,0 +1,42 @@
+{
+	"name": "whatsarchive-cli",
+	"version": "1.0.0",
+	"description": "CLI tool to import and convert WhatsApp chat transcripts into JSON, TXT, or HTML format with support for media files.",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "ts-node src/index.ts",
+		"test": "jest",
+		"dev": "ts-node fixtures/mockZipCreator.ts",
+		"mock": "ts-node src/mocker.ts"
+	},
+	"keywords": [
+		"WhatsApp",
+		"CLI",
+		"chat",
+		"archive",
+		"media"
+	],
+	"author": "Lisen",
+	"license": "MIT",
+	"dependencies": {
+		"@faker-js/faker": "^9.2.0",
+		"adm-zip": "^0.5.16",
+		"archiver": "^7.0.1",
+		"exiftool-vendored": "^15.0.0",
+		"ffmpeg-static": "^4.2.7",
+		"jszip": "^3.7.1",
+		"p-limit": "^3.1.0",
+		"yargs": "^17.4.0"
+	},
+	"devDependencies": {
+		"@types/adm-zip": "^0.5.6",
+		"@types/archiver": "^6.0.3",
+		"@types/jest": "^29.0.0",
+		"@types/node": "^20.4.0",
+		"@types/yargs": "^17.0.8",
+		"jest": "^29.0.0",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.0.0"
+	}
+}
